@@ -64,31 +64,44 @@ export const connectRedis = async () => {
   }
 };
 
+// Helper: crea un cliente externo sin tumbar el servidor si el entorno no lo
+// soporta (p. ej. StackBlitz/WebContainer no soporta el cliente remoto de
+// Turso/libsql). Estos clientes hoy solo se inicializan; no se usan en la lógica.
+function crearClienteSeguro<T>(nombre: string, fn: () => T): T | null {
+  try {
+    return fn();
+  } catch (err: any) {
+    console.warn(`⚠️  Cliente ${nombre} no inicializado en este entorno (${err.message}). Se omite.`);
+    return null;
+  }
+}
+
 // Configuración de Supabase (PostgreSQL para Auth y Usuarios)
 const supabaseUrl = process.env.SUPABASE_URL || 'https://xyzcompany.supabase.co';
 const supabaseKey = process.env.SUPABASE_KEY || 'public-anon-key';
-export const supabase = createSupabaseClient(supabaseUrl, supabaseKey);
+export const supabase = crearClienteSeguro('Supabase', () => createSupabaseClient(supabaseUrl, supabaseKey));
 
 // Configuración de Turso (Edge SQLite para Catálogos Estáticos)
 const tursoUrl = process.env.TURSO_URL || 'libsql://my-db.turso.io';
 const tursoAuthToken = process.env.TURSO_AUTH_TOKEN || 'dummy-token';
-export const turso = createTursoClient({
+export const turso = crearClienteSeguro('Turso', () => createTursoClient({
   url: tursoUrl,
   authToken: tursoAuthToken
-});
+}));
 
 // Configuración de Neon Database (Serverless PostgreSQL para Logs y Analíticas)
 const neonUrl = process.env.NEON_DB_URL || 'postgresql://user:pass@ep-restless-lake.eu-central-1.aws.neon.tech/neondb';
-export const neonSql = neon(neonUrl);
+export const neonSql = crearClienteSeguro('Neon', () => neon(neonUrl));
 
 // Configuración de Cassandra (Big Data / Series Temporales)
-export const cassandraClient = new cassandra.Client({
+export const cassandraClient = crearClienteSeguro('Cassandra', () => new cassandra.Client({
   contactPoints: [process.env.CASSANDRA_HOST || '127.0.0.1'],
   localDataCenter: process.env.CASSANDRA_DATACENTER || 'datacenter1',
   keyspace: process.env.CASSANDRA_KEYSPACE || 'proyecto_java'
-});
+}));
 
 export const connectCassandra = async () => {
+  if (!cassandraClient) return;
   try {
     await cassandraClient.connect();
     console.log(`🗄️ Conectado a Cassandra en ${process.env.CASSANDRA_HOST || '127.0.0.1'}`);
