@@ -1,0 +1,17 @@
+{
+  "name": "proyecto-integral-js",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Proyecto Integral JavaScript: un backend y 4 frontends (cada uno una función) servidos en un solo puerto.",
+  "packageManager": "npm@11.12.1",
+  "scripts": {
+    "install:all": "npm --prefix backend install --include=dev && npm --prefix frontend-angular install --include=dev && npm --prefix frontend-react install --include=dev && npm --prefix frontend-vue install --include=dev && npm --prefix frontend-next install --include=dev",
+    "postinstall": "npm run install:all",
+    "build:all": "turbo run build",
+    "start": "npm --prefix backend run start",
+    "dev": "npm run build:all && npm run start"
+  },
+  "devDependencies": {
+    "turbo": "^2.10.5"
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "consultas": [
+    {
+      "id": "1",
+      "estudiante": "Ana López",
+      "titulo": " dejar el curso",
+      "asunto": " dejar el curso",
+      "descripcion": "xd",
+      "mensaje": "xd",
+      "categoria": "general",
+      "urgencia": "inmediata",
+      "prioridad": "Media",
+      "estado": "pendiente",
+      "canal": "plataforma",
+      "fechaCreacion": "2026-07-06T16:44:08.105Z",
+      "fecha": "2026-07-06T16:44:08.105Z",
+      "fechaActualizacion": "2026-07-10T02:24:57.802Z",
+      "historial": [
+        {
+          "fecha": "2026-07-07T14:33:31.785Z",
+          "accion": "✏️ Modificado",
+          "descripcion": "Urgencia: de \"urgente\" a \"inmediata\""
+        },
+        {
+          "fecha": "2026-07-09T04:44:20.461Z",
+          "accion": "⚙️ Atendido",
+          "descripcion": "Ticket desencolado de la Cola de Prioridades y asignado para atención."
+        },
+        {
+          "fecha": "2026-07-09T05:20:56.342Z",
+          "accion": "🔄 Deshecho",
+          "descripcion": "Se revirtió la última operación para retornar a este estado."
+        },
+        {
+          "fecha": "2026-07-09T05:38:39.812Z",
+          "accion": "✏️ Modificado",
+          "descripcion": "Estado: de \"en proceso\" a \"resuelta\""
+        },
+        {
+          "fecha": "2026-07-09T13:52:45.276Z",
+          "accion": "✏️ Modificado",
+          "descripcion": "Estado: de \"resuelta\" a \"en proceso\""
+        },
+        {
+          "fecha": "2026-07-09T13:52:46.623Z",
+          "accion": "✏️ Modificado",
+          "descripcion": "Estado: de \"en proceso\" a \"pendiente\""
+        },
+        {
+          "fecha": "2026-07-09T13:52:48.105Z",
+          "accion": "✏️ Modificado",
+          "descripcion": "Estado: de \"pendiente\" a \"en proceso\""
+        },
+        {
+          "fecha": "2026-07-09T13:52:51.785Z",
+          "accion": "✏️ Modificado",
+          "descripcion": "Estado: de \"en proceso\" a \"resuelta\""
+        },
+        {
+          "fecha": "2026-07-09T13:52:53.410Z",
+          "accion": "✏️ Modificado",
+          "descripcion": "Estado: de \"resuelta\" a \"pendiente\""
+        },
+        {
+          "fecha": "2026-07-09T13:52:55.034Z",
+          "accion": "✏️ Modificado",
+          "descripcion": "Estado: de \"pendiente\" a \"resuelta\""
+        },
+        {
+          "fecha": "2026-07-09T23:25:21.521Z",
+          "accion": "✏️ Modificado",
+          "descripcion": "Estado: de \"resuelta\" a \"en proceso\""
+        },
+        {
+          "fecha": "2026-07-09T23:25:30.485Z",
+          "accion": "✏️ Modificado",
+          "descripcion": "Estado: de \"en proceso\" a \"resuelta\""
+        },
+        {
+          "fecha": "2026-07-10T01:38:08.784Z",
+          "accion": "✏️ Modificado",
+          "descripcion": "Estado: de \"resuelta\" a \"pendiente\""
+        },
+        {
+          "fecha": "2026-07-10T01:38:10.733Z",
+          "accion": "✏️ Modificado",
+          "descripcion": "Estado: de \"pendiente\" a \"en proceso\""
+        },
+        {
+          "fecha": "2026-07-10T01:38:12.420Z",
+          "accion": "✏️ Modificado",
+          "descripcion": "Estado: de \"en proceso\" a \"pendiente\""
+        },
+        {
+          "fecha": "2026-07-10T01:38:14.852Z",
+          "accion": "✏️ Modificado",
+          "descripcion": "Estado: de \"pendiente\" a \"resuelta\""
+        },
+        {
+          "fecha": "2026-07-10T02:24:56.150Z",
+          "accion": "✏️ Modificado",
+          "descripcion": "Estado: de \"resuelta\" a \"en proceso\""
+        },
+        {
+          "fecha": "2026-07-10T02:24:57.802Z",
+          "accion": "✏️ Modificado",
+          "descripcion": "Estado: de \"en proceso\" a \"pendiente\""
+        }
+      ]
+    }
+  ],
+  "nextId": 2
+}
