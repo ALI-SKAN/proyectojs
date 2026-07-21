@@ -4,17 +4,42 @@ import { createClient as createSupabaseClient } from '@supabase/supabase-js';
 import { createClient as createTursoClient } from '@libsql/client';
 import { neon } from '@neondatabase/serverless';
 import cassandra from 'cassandra-driver';
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { dirname, join } from 'node:path';
+import { setMemoryMode, seedMemory } from '../models/Consulta';
 
 // Configuración de MongoDB
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/proyectoIntegralDB';
 
+// No dejar que las operaciones queden colgadas si Mongo no está conectado
+mongoose.set('bufferCommands', false);
+
+/** Carga las consultas iniciales desde backend/db.json (para el modo en memoria). */
+function cargarSemilla(): any[] {
+  try {
+    const dir = dirname(fileURLToPath(import.meta.url)); // .../backend/src/config
+    const raw = readFileSync(join(dir, '..', '..', 'db.json'), 'utf-8');
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : (parsed.consultas || []);
+  } catch {
+    return [];
+  }
+}
+
 export const connectMongo = async () => {
   try {
-    await mongoose.connect(MONGO_URI);
+    // Timeout corto: si no hay Mongo, no esperamos 30s, pasamos a memoria rápido.
+    await mongoose.connect(MONGO_URI, { serverSelectionTimeoutMS: 2000 });
+    setMemoryMode(false);
     console.log(`📦 Conectado a MongoDB en ${MONGO_URI}`);
   } catch (err: any) {
-    console.error('❌ Error conectando a MongoDB:', err.message);
-    process.exit(1);
+    setMemoryMode(true);
+    const semilla = cargarSemilla();
+    seedMemory(semilla);
+    console.warn('⚠️  MongoDB no disponible → usando ALMACENAMIENTO EN MEMORIA.');
+    console.warn(`   Los datos se reinician al reiniciar el servidor (${semilla.length} consulta(s) precargada(s)).`);
+    console.warn(`   Detalle: ${err.message}`);
   }
 };
 
